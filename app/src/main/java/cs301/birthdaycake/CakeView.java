@@ -33,6 +33,8 @@ public class CakeView extends SurfaceView {
     public static final float wickWidth = 6.0f;
     public static final float outerFlameRadius = 30.0f;
     public static final float innerFlameRadius = 15.0f;
+    float touchX;
+    float touchY;
 
     private CakeModel cakeModel;
 
@@ -59,6 +61,8 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        touchX =-1;
+        touchY = -1;
 
         cakeModel = new CakeModel();
 
@@ -96,7 +100,25 @@ public class CakeView extends SurfaceView {
         }
     }
 
+    public void drawCheckerBoard(Canvas canvas, float x, float y) {
+        Paint paint = new Paint();
+        int[] colors = {Color.GREEN, Color.RED};
+        int squareSize = 35;
 
+        for(int i = 0; i < 2; i++) {
+            for(int j = 0; j < 2; j++) {
+                float left = x + i * squareSize;
+                float top = y + j * squareSize;
+                float right = left + squareSize;
+                float bottom = top + squareSize;
+
+                paint.setColor(colors[(i + j) % 2]);
+
+                canvas.drawRect(left, top, right, bottom, paint);
+            }
+        }
+
+    }
 
 
     /**
@@ -137,6 +159,9 @@ public class CakeView extends SurfaceView {
         for (int i = 0; i < numCandles; i++) {
             float candleX = cakeLeft + spacing * (i + 1) - candleWidth / 2;
             drawCandle(canvas, candleX, cakeTop);
+        }
+        if(touchX != -1 && touchY != -1) {
+            drawCheckerBoard(canvas,touchX,touchY);
         }
     }
 
