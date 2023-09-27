@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
+import android.view.MotionEvent;
 
 public class CakeView extends SurfaceView {
 
@@ -33,6 +34,8 @@ public class CakeView extends SurfaceView {
     public static final float wickWidth = 6.0f;
     public static final float outerFlameRadius = 30.0f;
     public static final float innerFlameRadius = 15.0f;
+    private float touchY = -1;
+    private float touchX = -1;
 
     private CakeModel cakeModel;
 
@@ -138,6 +141,17 @@ public class CakeView extends SurfaceView {
             float candleX = cakeLeft + spacing * (i + 1) - candleWidth / 2;
             drawCandle(canvas, candleX, cakeTop);
         }
+    }
+
+    /*if(touchX != -1 && touchY != -1){
+        pasteBalloon(touchX, touchY);
+    }
+    */
+    public boolean balloonTouch(MotionEvent event){
+        touchX = event.getX();
+        touchY= event.getY();
+        invalidate();
+        return super.onTouchEvent(event);
     }
 
 

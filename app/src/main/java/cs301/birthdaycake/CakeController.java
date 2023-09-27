@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
-public class CakeController implements SeekBar.OnSeekBarChangeListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class CakeController implements SeekBar.OnSeekBarChangeListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener{
     private CakeView cakeView;
     private CakeModel cakeModel;
 
@@ -46,4 +46,7 @@ public class CakeController implements SeekBar.OnSeekBarChangeListener, View.OnC
     public void onStopTrackingTouch(SeekBar seekBar) {
         // Do nothing
     }
+
+
+
 }
