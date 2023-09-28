@@ -119,6 +119,13 @@ public class CakeView extends SurfaceView {
         }
 
     }
+    public void drawBalloon(Canvas canvas, float x, float y){
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        canvas.drawOval(x - 25, y + 25, x + 25, y - 50,paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawArc(x, y - 100, x + 150, y + 150, 150, 30, false, paint);
+    }
 
 
     /**
@@ -162,6 +169,7 @@ public class CakeView extends SurfaceView {
         }
         if(touchX != -1 && touchY != -1) {
             drawCheckerBoard(canvas,touchX,touchY);
+            drawBalloon(canvas,touchX,touchY);
         }
     }
 
