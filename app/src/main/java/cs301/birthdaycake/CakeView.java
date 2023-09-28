@@ -36,8 +36,8 @@ public class CakeView extends SurfaceView {
 
     private CakeModel cakeModel;
 
-    private float touchX = -1;
-    private float touchY = -1;
+    public float touchX = -1;
+    public float touchY = -1;
     private Paint textPaint = new Paint();
 
 
