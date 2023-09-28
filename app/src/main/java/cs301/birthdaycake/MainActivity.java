@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the CakeController as the change listener for the SeekBar
         candleSeekBar.setOnSeekBarChangeListener(cakeController);
 
-
+        cakeView.setOnTouchListener(cakeController);
     }
 
 

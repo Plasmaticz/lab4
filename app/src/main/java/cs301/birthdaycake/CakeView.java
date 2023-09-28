@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
-import android.view.MotionEvent;
 
 public class CakeView extends SurfaceView {
 
@@ -17,7 +16,6 @@ public class CakeView extends SurfaceView {
     Paint outerFlamePaint = new Paint();
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
-
 
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
@@ -66,6 +64,8 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        touchX =-1;
+        touchY = -1;
 
         cakeModel = new CakeModel();
 
@@ -106,7 +106,32 @@ public class CakeView extends SurfaceView {
         }
     }
 
+    public void drawCheckerBoard(Canvas canvas, float x, float y) {
+        Paint paint = new Paint();
+        int[] colors = {Color.GREEN, Color.RED};
+        int squareSize = 35;
 
+        for(int i = 0; i < 2; i++) {
+            for(int j = 0; j < 2; j++) {
+                float left = x + i * squareSize;
+                float top = y + j * squareSize;
+                float right = left + squareSize;
+                float bottom = top + squareSize;
+
+                paint.setColor(colors[(i + j) % 2]);
+
+                canvas.drawRect(left, top, right, bottom, paint);
+            }
+        }
+
+    }
+    public void drawBalloon(Canvas canvas, float x, float y){
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        canvas.drawOval(x - 25, y + 25, x + 25, y - 50,paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawArc(x, y - 100, x + 150, y + 150, 150, 30, false, paint);
+    }
 
 
     /**
@@ -148,21 +173,13 @@ public class CakeView extends SurfaceView {
             float candleX = cakeLeft + spacing * (i + 1) - candleWidth / 2;
             drawCandle(canvas, candleX, cakeTop);
         }
-
         if(touchX != -1 && touchY != -1) {
+            drawCheckerBoard(canvas,touchX,touchY);
+            drawBalloon(canvas,touchX,touchY);
             String touchCoordinates = "X: " + touchX + ", Y: " + touchY;
-            canvas.drawText(touchCoordinates, 10, getHeight() - 10, textPaint);  // 10 units padding from left and bottom
+            canvas.drawText(touchCoordinates, 10, getHeight() - 10, textPaint);
         }
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        touchX = event.getX();
-        touchY = event.getY();
-        invalidate();  // Request a redraw so that the new touch location can be displayed
-        return super.onTouchEvent(event);
-    }
-
 
 
 }//class CakeView
